@@ -104,6 +104,7 @@ export class VirtualMachine {
   run() {
     while (true) {
       const code = this.codes[this.pc++];
+      console.log('-----', OpCode[code], this.pc);
       switch (code) {
         case OpCode.NOP: break;
 
@@ -371,7 +372,7 @@ export class VirtualMachine {
         }
 
         default:
-          throw new Error(`Unexpected code ${code.toString(16).padStart(2, '0')}`);
+          throw new Error(`Unexpected code ${code.toString(16).padStart(2, '0')}, index: ${this.pc - 1}`);
       }
     }
   }

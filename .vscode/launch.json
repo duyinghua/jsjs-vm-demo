@@ -16,6 +16,27 @@
 			"outFiles": [
 				"${workspaceFolder}/**/*.js"
 			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "ts-launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			// "preLaunchTask": "npm: build",
+			"args": ["${workspaceFolder}/src/index.ts"],
+			// "outFiles": [
+			// 	"${workspaceFolder}/**/*.js"
+			// ],
+			"runtimeArgs": [
+				"--nolazy",
+				"-r",
+				"ts-node/register"
+			  ],
+			"cwd": "${workspaceFolder}",
+			"protocol": "inspector",
+			"sourceMaps": true,
 		}
 	]
 }

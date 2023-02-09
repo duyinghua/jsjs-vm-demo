@@ -1,4 +1,9 @@
 
+var test = function (a, b){
+   return a > 20 ? a : (a>5?5:b)
+}
+console.log(test(10, 1))
+
 // var quickSort = function (arr) {
 // 	if (arr.length <= 1) { return arr; }
 // 	var pivotIndex = Math.floor(arr.length / 2);
@@ -16,14 +21,14 @@
 // };
 // console.log(quickSort([3, 6, 8, 2, 1, 9, 5, 7, 4]));
 
-wx.showModal({
-	title: '这是一段隐藏在图片中的代码',
-	content: '这是一段隐藏在图片中的代码',
-	success: function (res) {
-		if (res.confirm) {
-			page.setData({ motto: '用户点击确定' });
-		} else if (res.cancel) {
-			page.setData({ motto: '用户点击取消' });
-		}
-	}
-})
+// wx.showModal({
+// 	title: '这是一段隐藏在图片中的代码',
+// 	content: '这是一段隐藏在图片中的代码',
+// 	success: function (res) {
+// 		if (res.confirm) {
+// 			page.setData({ motto: '用户点击确定' });
+// 		} else if (res.cancel) {
+// 			page.setData({ motto: '用户点击取消' });
+// 		}
+// 	}
+// })

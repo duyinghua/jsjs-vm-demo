@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as Jimp from 'jimp';
 import { chunk } from 'lodash';
 
+import logger from './logger'
 import { Compiler } from './compiler';
 import { GlobalScope, VirtualMachine } from './virtual-machine';
 
@@ -10,16 +11,21 @@ async function __main__() {
 
   const compiler = new Compiler();
 
-  const testCode = fs.readFileSync(path.join(__dirname, '../test-code.js'), 'utf8');
+  // 读取js原始代码
+  const testCode = fs.readFileSync(path.join(__dirname, '../test2-code.js'), 'utf8');
   compiler.compile(testCode);
 
+  // 原始代码转为数字数组
   const codes = compiler.toNumberArray();
+  logger('numArray', codes);
   compiler.show();
 
-  // const globalScope = new GlobalScope(global);
-  // const vm = new VirtualMachine(globalScope, codes);
-  // vm.run()
-
+  // 数字数组进行运行
+  const globalScope = new GlobalScope(global);
+  const vm = new VirtualMachine(globalScope, codes);
+  vm.run()
+  // console.log('return a = ' + globalScope.load('a'))
+return
   const image = await Jimp.read('./origin.jpg');
   const buffer = image.bitmap.data;
 
@@ -55,7 +61,7 @@ async function __main__() {
     }
     targetCodes.push(byte);
   }
-  console.log(targetCodes);
+  console.log("🍎targetCodes:", targetCodes);
 
   for (let i = 0; i < codes.length; i++) {
     if (codes[i] !== targetCodes[i]) {

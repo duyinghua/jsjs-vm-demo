@@ -37,10 +37,10 @@ export enum OpCode {
   JUMPNOT = 0x22,
 
   // 函数
-  FUNC = 0x30,
-  CALL = 0x31,
-  NEW = 0x32,
-  RET = 0x33,
+  FUNC = 0x30, // function
+  CALL = 0x31, // CallExpression
+  NEW = 0x32, // new
+  RET = 0x33, // return
 
   // 对象操作
   GET = 0x40,

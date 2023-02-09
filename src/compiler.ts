@@ -2,6 +2,7 @@ import { Node, Program, Function, Expression, Statement, Identifier, Property, M
 import { OpCode } from './constrains';
 import { Parser } from "./parser";
 import { VirtualMachine } from './virtual-machine';
+import logger from './logger'
 
 export class UniqueId {
   private nextId = 1;
@@ -534,13 +535,15 @@ export class Compiler {
         const altLabel = this.createLabelName('cond_alt');
         const { test, consequent, alternate } = expr;
         this.compileExpression(test);
-        this.writeLabel(altLabel);
+        this.writeReference(alternate ? altLabel : endLabel);
         this.writeOp(OpCode.JUMPNOT);
         this.compileExpression(consequent);
-        this.writeReference(endLabel);
-        this.writeOp(OpCode.JUMP);
-        this.writeLabel(altLabel);
-        this.compileExpression(alternate);
+        if (alternate) {
+          this.writeReference(endLabel);
+          this.writeOp(OpCode.JUMP);
+          this.writeLabel(altLabel);
+          this.compileExpression(alternate);
+        }
         this.writeLabel(endLabel);
         break;
       }
@@ -655,7 +658,7 @@ export class Compiler {
     this.clear();
     const blocks = this.parser.parse(source);
 
-    this.compile
+    // this.compile
 
     for (const block of blocks) {
       this.compileBlock(block);
@@ -687,7 +690,7 @@ export class Compiler {
         }
       }
     }
-    console.log(lines.join('\n'));
+    logger('show', lines.join('\n'));
   }
 
   toNumberArray(): number[] {
